@@ -47,6 +47,46 @@ class _CurrencyRemoteDataSource implements CurrencyRemoteDataSource {
     return value;
   }
 
+  @override
+  Future<TimeSeriesDto> getTimeSeriesRatesData(
+    String apiKey,
+    String startDate,
+    String? endDate,
+    String? baseCurrencyCode,
+    String? currencyCodes,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'apikey': apiKey,
+      r'startDate': startDate,
+      r'endDate': endDate,
+      r'base': baseCurrencyCode,
+      r'symbols': currencyCodes,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<TimeSeriesDto>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/timeseries',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = TimeSeriesDto.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
