@@ -17,14 +17,12 @@ class LineChartGraphic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeSeriesRates = rates
-        .map(
-          (rate) => TimeSeriesRates(
-            rate.date,
-            double.parse(double.parse(rate.rates['PKR']).toStringAsFixed(2)),
-          ),
-        )
-        .toList();
+    final timeSeriesRates = rates.map((rate) {
+      return TimeSeriesRates(
+        rate.date,
+        rate.rates['PKR'],
+      );
+    }).toList();
 
     return Container(
       margin: const EdgeInsets.only(top: 10),

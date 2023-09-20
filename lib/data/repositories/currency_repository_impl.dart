@@ -65,8 +65,6 @@ class CurrencyRepositoryImpl implements CurrencyRepository {
     //         graphForm['base'],
     //         'EUR,GBP');
 
-    print(graphForm['base']);
-
     TimeSeriesDto timeSeriesData = TimeSeriesDto.fromJson(json);
 
     return Future.value(ratesMapper(timeSeriesData));
@@ -92,12 +90,23 @@ List<Currency> currencyMapper(CurrencyResponse currenciesMap) {
 }
 
 List<Rate> ratesMapper(TimeSeriesDto timeSeriesData) {
-  return timeSeriesData.historicalRatesList
-      .map(
-        (rate) => Rate(
-          date: DateTime.parse(rate.date),
-          rates: rate.rates,
-        ),
-      )
-      .toList();
+  return timeSeriesData.historicalRatesList.map((rate) {
+    Map<String, double> convertedMap = {};
+
+    rate.rates.forEach(
+      (key, value) {
+        double? doubleValue = double.tryParse(value);
+
+        if (doubleValue != null) {
+          String formattedCurrencyRate = doubleValue.toStringAsFixed(4);
+          convertedMap[key] = double.parse(formattedCurrencyRate);
+        }
+      },
+    );
+
+    return Rate(
+      date: DateTime.parse(rate.date),
+      rates: convertedMap,
+    );
+  }).toList();
 }

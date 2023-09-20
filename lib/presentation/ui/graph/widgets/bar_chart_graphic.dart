@@ -14,11 +14,12 @@ class BarChartCraphic extends StatelessWidget {
       final List<Map<String, dynamic>> chartData = [];
 
       for (var rate in rates) {
-        chartData.add({
-          'day': convertDate(rate.date),
-          'value':
-              double.parse(double.parse(rate.rates['PKR']).toStringAsFixed(2)),
-        });
+        chartData.add(
+          {
+            'day': convertDate(rate.date),
+            'value': rate.rates['PKR'],
+          },
+        );
       }
 
       return chartData;

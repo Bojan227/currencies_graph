@@ -6,14 +6,6 @@ part 'rates_entity.freezed.dart';
 class Rate with _$Rate {
   const factory Rate({
     required DateTime date,
-    required Map<String, dynamic> rates,
+    required Map<String, double> rates,
   }) = _Rate;
 }
-
-// @freezed
-// class RateData with _$RateData {
-//   const factory RateData({
-//     required double mainLabel,
-//     required double converted,
-//   }) = _RateData;
-// }
