@@ -8,12 +8,26 @@ import 'package:flutter/material.dart';
 class BarChartWidget extends StatelessWidget {
   final List<Rate> rates;
 
-  const BarChartWidget({super.key, required this.rates});
+  const BarChartWidget({
+    super.key,
+    required this.rates,
+  });
 
   @override
   Widget build(BuildContext context) {
     List<String> bottomTitles =
         rates.map((rate) => convertDate(rate.date)).toList();
+
+    double maxValue = 0;
+
+    for (var rate in rates) {
+      double value =
+          double.parse(double.parse(rate.rates['PKR']).toStringAsFixed(2));
+
+      if (maxValue < value) {
+        maxValue = value;
+      }
+    }
 
     return SizedBox(
       height: 350,
@@ -38,7 +52,7 @@ class BarChartWidget extends StatelessWidget {
               ),
           ],
           minY: 0,
-          maxY: 250,
+          maxY: maxValue == 0 ? 250 : maxValue,
           titlesData: FlTitlesData(
             show: true,
             rightTitles: const AxisTitles(
@@ -63,8 +77,8 @@ class BarChartWidget extends StatelessWidget {
                   showTitles: true,
                   getTitlesWidget: (value, meta) =>
                       LeftTitles(value: value, meta: meta),
-                  reservedSize: 44,
-                  interval: 250 / 2),
+                  reservedSize: 36,
+                  interval: maxValue == 0 ? 250 / 2 : maxValue / 2),
             ),
           ),
           gridData: FlGridData(
@@ -86,7 +100,7 @@ class BarChartWidget extends StatelessWidget {
             },
           ),
         ),
-        swapAnimationDuration: const Duration(milliseconds: 450),
+        swapAnimationDuration: const Duration(milliseconds: 350),
         swapAnimationCurve: Curves.linear,
       ),
     );
