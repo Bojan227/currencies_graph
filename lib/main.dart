@@ -1,14 +1,13 @@
-import 'package:currencies_graph/data/datasources/currency_remote_datasource.dart';
-import 'package:currencies_graph/data/repositories/currency_repository_impl.dart';
-import 'package:currencies_graph/domain/repositories/currency_repository.dart';
+import 'package:currencies_graph/core/injector/injector.dart';
 import 'package:currencies_graph/domain/usecases/get_supported_currencies_usecase.dart';
-import 'package:currencies_graph/presentation/blocs/currencies/bloc/currencies_bloc.dart';
-import 'package:currencies_graph/presentation/ui/home_screen.dart';
-import 'package:dio/dio.dart';
+import 'package:currencies_graph/presentation/blocs/currencies/currencies_bloc.dart';
+import 'package:currencies_graph/presentation/ui/home/home_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+Future<void> main() async {
+  await setupInjector();
   runApp(const MyApp());
 }
 
@@ -17,15 +16,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dio = Dio();
-
-    final CurrencyRemoteDataSource currencyRemoteDataSource =
-        CurrencyRemoteDataSource(dio);
-    final CurrencyRepository currencyRepository = CurrencyRepositoryImpl(
-        currencyRemoteDataSource: currencyRemoteDataSource);
-
-    final useCase =
-        GetSupportedCurrenciesUseCase(currencyRepository: currencyRepository);
+    final GetSupportedCurrenciesUseCase getSupportedCurrenciesUseCase =
+        getIt<GetSupportedCurrenciesUseCase>();
 
     return MaterialApp(
       title: 'Currency Freaks',
@@ -34,9 +26,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (context) =>
-            CurrenciesBloc(getSupportedCurrenciesUseCase: useCase)
-              ..add(const GetSupportedCurrencies()),
+        create: (context) => CurrenciesBloc(
+            getSupportedCurrenciesUseCase: getSupportedCurrenciesUseCase)
+          ..add(const GetSupportedCurrencies()),
         child: const HomeScreen(),
       ),
     );
