@@ -6,7 +6,7 @@ class GetHistoricalRatesUseCase {
 
   GetHistoricalRatesUseCase({required this.currencyRepository});
 
-  Future<List<Rate>> getSupportedCurrencies() async {
+  Future<List<Rate>> call() async {
     return await currencyRepository.gethistoricalRatesList();
   }
 }

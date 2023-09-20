@@ -21,7 +21,7 @@ class CurrenciesBloc extends Bloc<CurrenciesEvent, CurrenciesState> {
 
     try {
       final List<Currency> supportedCurrencies =
-          await getSupportedCurrenciesUseCase.getSupportedCurrencies();
+          await getSupportedCurrenciesUseCase.call();
 
       emit(
         CurrenciesState.loaded(supportedCurrencies: supportedCurrencies),

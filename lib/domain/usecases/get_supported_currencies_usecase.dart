@@ -6,7 +6,7 @@ class GetSupportedCurrenciesUseCase {
 
   GetSupportedCurrenciesUseCase({required this.currencyRepository});
 
-  Future<List<Currency>> getSupportedCurrencies() async {
+  Future<List<Currency>> call() async {
     return await currencyRepository.getSupportedCurrencies();
   }
 }
