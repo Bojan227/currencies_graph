@@ -6,7 +6,8 @@ class GetHistoricalRatesUseCase {
 
   GetHistoricalRatesUseCase({required this.currencyRepository});
 
-  Future<List<Rate>> call() async {
-    return await currencyRepository.gethistoricalRatesList();
+  Future<List<Rate>> call({required Map<String, dynamic> graphForm}) async {
+    return await currencyRepository.gethistoricalRatesList(
+        graphForm: graphForm);
   }
 }

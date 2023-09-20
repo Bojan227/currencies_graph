@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Rate {
   DateTime get date => throw _privateConstructorUsedError;
-  RateData get rates => throw _privateConstructorUsedError;
+  Map<String, dynamic> get rates => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RateCopyWith<Rate> get copyWith => throw _privateConstructorUsedError;
@@ -28,9 +28,7 @@ abstract class $RateCopyWith<$Res> {
   factory $RateCopyWith(Rate value, $Res Function(Rate) then) =
       _$RateCopyWithImpl<$Res, Rate>;
   @useResult
-  $Res call({DateTime date, RateData rates});
-
-  $RateDataCopyWith<$Res> get rates;
+  $Res call({DateTime date, Map<String, dynamic> rates});
 }
 
 /// @nodoc
@@ -57,16 +55,8 @@ class _$RateCopyWithImpl<$Res, $Val extends Rate>
       rates: null == rates
           ? _value.rates
           : rates // ignore: cast_nullable_to_non_nullable
-              as RateData,
+              as Map<String, dynamic>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RateDataCopyWith<$Res> get rates {
-    return $RateDataCopyWith<$Res>(_value.rates, (value) {
-      return _then(_value.copyWith(rates: value) as $Val);
-    });
   }
 }
 
@@ -76,10 +66,7 @@ abstract class _$$_RateCopyWith<$Res> implements $RateCopyWith<$Res> {
       __$$_RateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime date, RateData rates});
-
-  @override
-  $RateDataCopyWith<$Res> get rates;
+  $Res call({DateTime date, Map<String, dynamic> rates});
 }
 
 /// @nodoc
@@ -100,9 +87,9 @@ class __$$_RateCopyWithImpl<$Res> extends _$RateCopyWithImpl<$Res, _$_Rate>
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
       rates: null == rates
-          ? _value.rates
+          ? _value._rates
           : rates // ignore: cast_nullable_to_non_nullable
-              as RateData,
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -110,12 +97,18 @@ class __$$_RateCopyWithImpl<$Res> extends _$RateCopyWithImpl<$Res, _$_Rate>
 /// @nodoc
 
 class _$_Rate implements _Rate {
-  const _$_Rate({required this.date, required this.rates});
+  const _$_Rate({required this.date, required final Map<String, dynamic> rates})
+      : _rates = rates;
 
   @override
   final DateTime date;
+  final Map<String, dynamic> _rates;
   @override
-  final RateData rates;
+  Map<String, dynamic> get rates {
+    if (_rates is EqualUnmodifiableMapView) return _rates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_rates);
+  }
 
   @override
   String toString() {
@@ -128,11 +121,12 @@ class _$_Rate implements _Rate {
         (other.runtimeType == runtimeType &&
             other is _$_Rate &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.rates, rates) || other.rates == rates));
+            const DeepCollectionEquality().equals(other._rates, _rates));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, date, rates);
+  int get hashCode => Object.hash(
+      runtimeType, date, const DeepCollectionEquality().hash(_rates));
 
   @JsonKey(ignore: true)
   @override
@@ -143,148 +137,14 @@ class _$_Rate implements _Rate {
 
 abstract class _Rate implements Rate {
   const factory _Rate(
-      {required final DateTime date, required final RateData rates}) = _$_Rate;
+      {required final DateTime date,
+      required final Map<String, dynamic> rates}) = _$_Rate;
 
   @override
   DateTime get date;
   @override
-  RateData get rates;
+  Map<String, dynamic> get rates;
   @override
   @JsonKey(ignore: true)
   _$$_RateCopyWith<_$_Rate> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$RateData {
-  double get mainLabel => throw _privateConstructorUsedError;
-  double get converted => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $RateDataCopyWith<RateData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $RateDataCopyWith<$Res> {
-  factory $RateDataCopyWith(RateData value, $Res Function(RateData) then) =
-      _$RateDataCopyWithImpl<$Res, RateData>;
-  @useResult
-  $Res call({double mainLabel, double converted});
-}
-
-/// @nodoc
-class _$RateDataCopyWithImpl<$Res, $Val extends RateData>
-    implements $RateDataCopyWith<$Res> {
-  _$RateDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? mainLabel = null,
-    Object? converted = null,
-  }) {
-    return _then(_value.copyWith(
-      mainLabel: null == mainLabel
-          ? _value.mainLabel
-          : mainLabel // ignore: cast_nullable_to_non_nullable
-              as double,
-      converted: null == converted
-          ? _value.converted
-          : converted // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_RateDataCopyWith<$Res> implements $RateDataCopyWith<$Res> {
-  factory _$$_RateDataCopyWith(
-          _$_RateData value, $Res Function(_$_RateData) then) =
-      __$$_RateDataCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({double mainLabel, double converted});
-}
-
-/// @nodoc
-class __$$_RateDataCopyWithImpl<$Res>
-    extends _$RateDataCopyWithImpl<$Res, _$_RateData>
-    implements _$$_RateDataCopyWith<$Res> {
-  __$$_RateDataCopyWithImpl(
-      _$_RateData _value, $Res Function(_$_RateData) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? mainLabel = null,
-    Object? converted = null,
-  }) {
-    return _then(_$_RateData(
-      mainLabel: null == mainLabel
-          ? _value.mainLabel
-          : mainLabel // ignore: cast_nullable_to_non_nullable
-              as double,
-      converted: null == converted
-          ? _value.converted
-          : converted // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_RateData implements _RateData {
-  const _$_RateData({required this.mainLabel, required this.converted});
-
-  @override
-  final double mainLabel;
-  @override
-  final double converted;
-
-  @override
-  String toString() {
-    return 'RateData(mainLabel: $mainLabel, converted: $converted)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_RateData &&
-            (identical(other.mainLabel, mainLabel) ||
-                other.mainLabel == mainLabel) &&
-            (identical(other.converted, converted) ||
-                other.converted == converted));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, mainLabel, converted);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_RateDataCopyWith<_$_RateData> get copyWith =>
-      __$$_RateDataCopyWithImpl<_$_RateData>(this, _$identity);
-}
-
-abstract class _RateData implements RateData {
-  const factory _RateData(
-      {required final double mainLabel,
-      required final double converted}) = _$_RateData;
-
-  @override
-  double get mainLabel;
-  @override
-  double get converted;
-  @override
-  @JsonKey(ignore: true)
-  _$$_RateDataCopyWith<_$_RateData> get copyWith =>
-      throw _privateConstructorUsedError;
 }

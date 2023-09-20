@@ -1,6 +1,7 @@
+import 'package:currencies_graph/presentation/blocs/timeseries/bloc/rates_bloc.dart';
 import 'package:currencies_graph/presentation/blocs/timeseries/cubit/graph_form_cubit.dart';
+import 'package:currencies_graph/presentation/ui/graph/widgets/bar_chart.dart';
 import 'package:currencies_graph/presentation/ui/graph/widgets/date_picker.dart';
-import 'package:currencies_graph/presentation/ui/graph/widgets/line_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,7 @@ class GraphScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final graphForm = context.watch<GraphFormCubit>().state.parameters;
+    final ratesState = context.watch<RatesBloc>().state;
 
     return Scaffold(
       appBar: AppBar(
@@ -53,13 +55,23 @@ class GraphScreen extends StatelessWidget {
             ),
             Text('From ${graphForm['startDate']} To ${graphForm['endDate']}'),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<RatesBloc>().add(GetRatesData(graphForm));
+              },
               child: const Text("Submit"),
             ),
             const SizedBox(
               height: 18,
             ),
-            const LineChartWidget()
+            ratesState.when(
+                initial: () => const BarChartWidget(rates: []),
+                loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                loaded: (rates) => BarChartWidget(
+                      rates: rates,
+                    ),
+                failed: () => const Text('Failed to get rates data'))
           ],
         ),
       ),

@@ -20,7 +20,8 @@ class BottomTitles extends StatelessWidget {
       space: 14, //margin top
       child: Text(
         titles[value.toInt()],
-        style: const TextStyle(color: Colors.black),
+        style: const TextStyle(
+            color: Colors.black, fontSize: 8, fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -5,10 +5,10 @@ import 'package:currencies_graph/presentation/ui/graph/widgets/left_titles.dart'
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class LineChartWidget extends StatelessWidget {
+class BarChartWidget extends StatelessWidget {
   final List<Rate> rates;
 
-  const LineChartWidget({super.key, required this.rates});
+  const BarChartWidget({super.key, required this.rates});
 
   @override
   Widget build(BuildContext context) {
@@ -18,34 +18,27 @@ class LineChartWidget extends StatelessWidget {
     return SizedBox(
       height: 350,
       width: double.infinity,
-      child: LineChart(
-        LineChartData(
-          lineBarsData: [
-            LineChartBarData(
-              spots: [
-                for (final (index, rate) in rates.indexed)
-                  FlSpot(
-                    index.toDouble(),
-                    double.parse(double.parse(
-                      rate.rates["PKR"],
-                    ).toStringAsFixed(2)),
-                  ),
-              ],
-              isCurved: true,
-              barWidth: 3,
-              isStrokeCapRound: true,
-              dotData: const FlDotData(
-                show: true,
+      child: BarChart(
+        BarChartData(
+          barGroups: [
+            for (final (index, rate) in rates.indexed)
+              BarChartGroupData(
+                x: index,
+                barsSpace: 6,
+                barRods: [
+                  BarChartRodData(
+                    borderRadius: BorderRadius.zero,
+                    color: Colors.black,
+                    width: 20,
+                    toY: double.parse(
+                      double.parse(rate.rates["PKR"]).toStringAsFixed(2),
+                    ),
+                  )
+                ],
               ),
-              belowBarData: BarAreaData(
-                show: true,
-              ),
-            ),
           ],
-          minX: 0,
-          maxX: bottomTitles.length - 1,
           minY: 0,
-          maxY: 500,
+          maxY: 250,
           titlesData: FlTitlesData(
             show: true,
             rightTitles: const AxisTitles(
@@ -56,8 +49,7 @@ class LineChartWidget extends StatelessWidget {
             ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
-                interval: 1,
-                reservedSize: 56,
+                reservedSize: 88,
                 showTitles: true,
                 getTitlesWidget: (value, meta) => BottomTitles(
                   titles: bottomTitles,
@@ -72,11 +64,11 @@ class LineChartWidget extends StatelessWidget {
                   getTitlesWidget: (value, meta) =>
                       LeftTitles(value: value, meta: meta),
                   reservedSize: 44,
-                  interval: 500 / 2),
+                  interval: 250 / 2),
             ),
           ),
           gridData: FlGridData(
-            show: true,
+            show: false,
             drawVerticalLine: true,
             horizontalInterval: 1,
             verticalInterval: 1,
@@ -94,6 +86,8 @@ class LineChartWidget extends StatelessWidget {
             },
           ),
         ),
+        swapAnimationDuration: const Duration(milliseconds: 450),
+        swapAnimationCurve: Curves.linear,
       ),
     );
   }

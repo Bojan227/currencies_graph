@@ -19,8 +19,8 @@ class RatesBloc extends Bloc<RatesEvent, RatesState> {
     emit(const RatesState.loading());
 
     try {
-      List<Rate> ratesData = await getHistoricalRatesUseCase.call();
-
+      List<Rate> ratesData =
+          await getHistoricalRatesUseCase.call(graphForm: event.graphForm);
       emit(RatesState.loaded(rates: ratesData));
     } catch (error) {
       emit(const RatesState.failed());

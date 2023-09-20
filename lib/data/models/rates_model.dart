@@ -7,20 +7,20 @@ part 'rates_model.g.dart';
 class RateDto with _$RateDto {
   const factory RateDto({
     required String date,
-    required RateDataDto rates,
+    required Map<String, dynamic> rates,
   }) = _RateDto;
 
   factory RateDto.fromJson(Map<String, dynamic> json) =>
       _$RateDtoFromJson(json);
 }
 
-@freezed
-class RateDataDto with _$RateDataDto {
-  const factory RateDataDto({
-    required String mainLabel,
-    required String converted,
-  }) = _RateDataDto;
+// @freezed
+// class RateDataDto with _$RateDataDto {
+//   const factory RateDataDto({
+//     required String mainLabel,
+//     required String converted,
+//   }) = _RateDataDto;
 
-  factory RateDataDto.fromJson(Map<String, dynamic> json) =>
-      _$RateDataDtoFromJson(json);
-}
+//   factory RateDataDto.fromJson(Map<String, dynamic> json) =>
+//       _$RateDataDtoFromJson(json);
+// }

@@ -55,14 +55,17 @@ class CurrencyRepositoryImpl implements CurrencyRepository {
   }
 
   @override
-  Future<List<Rate>> gethistoricalRatesList() async {
+  Future<List<Rate>> gethistoricalRatesList(
+      {required Map<String, dynamic> graphForm}) async {
     // TimeSeriesDto timeSeriesData =
     //     await currencyRemoteDataSource.getTimeSeriesRatesData(
     //         'fa2e594982b644ce924e66a3e87a4d2b',
-    //         '2023-01-01',
-    //         '2023-09-19',
-    //         'USD',
+    //         graphForm['startDate'],
+    //         graphForm['endDate'],
+    //         graphForm['base'],
     //         'EUR,GBP');
+
+    print(graphForm['base']);
 
     TimeSeriesDto timeSeriesData = TimeSeriesDto.fromJson(json);
 
@@ -93,10 +96,7 @@ List<Rate> ratesMapper(TimeSeriesDto timeSeriesData) {
       .map(
         (rate) => Rate(
           date: DateTime.parse(rate.date),
-          rates: RateData(
-            mainLabel: double.parse(rate.rates.mainLabel),
-            converted: double.parse(rate.rates.converted),
-          ),
+          rates: rate.rates,
         ),
       )
       .toList();

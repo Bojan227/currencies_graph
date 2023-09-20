@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RatesEvent {
+  Map<String, dynamic> get graphForm => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getRatesData,
+    required TResult Function(Map<String, dynamic> graphForm) getRatesData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getRatesData,
+    TResult? Function(Map<String, dynamic> graphForm)? getRatesData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getRatesData,
+    TResult Function(Map<String, dynamic> graphForm)? getRatesData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$RatesEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $RatesEventCopyWith<RatesEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $RatesEventCopyWith<$Res> {
   factory $RatesEventCopyWith(
           RatesEvent value, $Res Function(RatesEvent) then) =
       _$RatesEventCopyWithImpl<$Res, RatesEvent>;
+  @useResult
+  $Res call({Map<String, dynamic> graphForm});
 }
 
 /// @nodoc
@@ -66,13 +73,30 @@ class _$RatesEventCopyWithImpl<$Res, $Val extends RatesEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? graphForm = null,
+  }) {
+    return _then(_value.copyWith(
+      graphForm: null == graphForm
+          ? _value.graphForm
+          : graphForm // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetRatesDataCopyWith<$Res> {
+abstract class _$$GetRatesDataCopyWith<$Res>
+    implements $RatesEventCopyWith<$Res> {
   factory _$$GetRatesDataCopyWith(
           _$GetRatesData value, $Res Function(_$GetRatesData) then) =
       __$$GetRatesDataCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Map<String, dynamic> graphForm});
 }
 
 /// @nodoc
@@ -82,51 +106,83 @@ class __$$GetRatesDataCopyWithImpl<$Res>
   __$$GetRatesDataCopyWithImpl(
       _$GetRatesData _value, $Res Function(_$GetRatesData) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? graphForm = null,
+  }) {
+    return _then(_$GetRatesData(
+      null == graphForm
+          ? _value._graphForm
+          : graphForm // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetRatesData implements GetRatesData {
-  const _$GetRatesData();
+  const _$GetRatesData(final Map<String, dynamic> graphForm)
+      : _graphForm = graphForm;
+
+  final Map<String, dynamic> _graphForm;
+  @override
+  Map<String, dynamic> get graphForm {
+    if (_graphForm is EqualUnmodifiableMapView) return _graphForm;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_graphForm);
+  }
 
   @override
   String toString() {
-    return 'RatesEvent.getRatesData()';
+    return 'RatesEvent.getRatesData(graphForm: $graphForm)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetRatesData);
+        (other.runtimeType == runtimeType &&
+            other is _$GetRatesData &&
+            const DeepCollectionEquality()
+                .equals(other._graphForm, _graphForm));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_graphForm));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetRatesDataCopyWith<_$GetRatesData> get copyWith =>
+      __$$GetRatesDataCopyWithImpl<_$GetRatesData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getRatesData,
+    required TResult Function(Map<String, dynamic> graphForm) getRatesData,
   }) {
-    return getRatesData();
+    return getRatesData(graphForm);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getRatesData,
+    TResult? Function(Map<String, dynamic> graphForm)? getRatesData,
   }) {
-    return getRatesData?.call();
+    return getRatesData?.call(graphForm);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getRatesData,
+    TResult Function(Map<String, dynamic> graphForm)? getRatesData,
     required TResult orElse(),
   }) {
     if (getRatesData != null) {
-      return getRatesData();
+      return getRatesData(graphForm);
     }
     return orElse();
   }
@@ -161,7 +217,15 @@ class _$GetRatesData implements GetRatesData {
 }
 
 abstract class GetRatesData implements RatesEvent {
-  const factory GetRatesData() = _$GetRatesData;
+  const factory GetRatesData(final Map<String, dynamic> graphForm) =
+      _$GetRatesData;
+
+  @override
+  Map<String, dynamic> get graphForm;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetRatesDataCopyWith<_$GetRatesData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -21,7 +21,7 @@ RateDto _$RateDtoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RateDto {
   String get date => throw _privateConstructorUsedError;
-  RateDataDto get rates => throw _privateConstructorUsedError;
+  Map<String, dynamic> get rates => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,9 +33,7 @@ abstract class $RateDtoCopyWith<$Res> {
   factory $RateDtoCopyWith(RateDto value, $Res Function(RateDto) then) =
       _$RateDtoCopyWithImpl<$Res, RateDto>;
   @useResult
-  $Res call({String date, RateDataDto rates});
-
-  $RateDataDtoCopyWith<$Res> get rates;
+  $Res call({String date, Map<String, dynamic> rates});
 }
 
 /// @nodoc
@@ -62,16 +60,8 @@ class _$RateDtoCopyWithImpl<$Res, $Val extends RateDto>
       rates: null == rates
           ? _value.rates
           : rates // ignore: cast_nullable_to_non_nullable
-              as RateDataDto,
+              as Map<String, dynamic>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RateDataDtoCopyWith<$Res> get rates {
-    return $RateDataDtoCopyWith<$Res>(_value.rates, (value) {
-      return _then(_value.copyWith(rates: value) as $Val);
-    });
   }
 }
 
@@ -82,10 +72,7 @@ abstract class _$$_RateDtoCopyWith<$Res> implements $RateDtoCopyWith<$Res> {
       __$$_RateDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String date, RateDataDto rates});
-
-  @override
-  $RateDataDtoCopyWith<$Res> get rates;
+  $Res call({String date, Map<String, dynamic> rates});
 }
 
 /// @nodoc
@@ -107,9 +94,9 @@ class __$$_RateDtoCopyWithImpl<$Res>
           : date // ignore: cast_nullable_to_non_nullable
               as String,
       rates: null == rates
-          ? _value.rates
+          ? _value._rates
           : rates // ignore: cast_nullable_to_non_nullable
-              as RateDataDto,
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -117,15 +104,22 @@ class __$$_RateDtoCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_RateDto implements _RateDto {
-  const _$_RateDto({required this.date, required this.rates});
+  const _$_RateDto(
+      {required this.date, required final Map<String, dynamic> rates})
+      : _rates = rates;
 
   factory _$_RateDto.fromJson(Map<String, dynamic> json) =>
       _$$_RateDtoFromJson(json);
 
   @override
   final String date;
+  final Map<String, dynamic> _rates;
   @override
-  final RateDataDto rates;
+  Map<String, dynamic> get rates {
+    if (_rates is EqualUnmodifiableMapView) return _rates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_rates);
+  }
 
   @override
   String toString() {
@@ -138,12 +132,13 @@ class _$_RateDto implements _RateDto {
         (other.runtimeType == runtimeType &&
             other is _$_RateDto &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.rates, rates) || other.rates == rates));
+            const DeepCollectionEquality().equals(other._rates, _rates));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, date, rates);
+  int get hashCode => Object.hash(
+      runtimeType, date, const DeepCollectionEquality().hash(_rates));
 
   @JsonKey(ignore: true)
   @override
@@ -162,172 +157,16 @@ class _$_RateDto implements _RateDto {
 abstract class _RateDto implements RateDto {
   const factory _RateDto(
       {required final String date,
-      required final RateDataDto rates}) = _$_RateDto;
+      required final Map<String, dynamic> rates}) = _$_RateDto;
 
   factory _RateDto.fromJson(Map<String, dynamic> json) = _$_RateDto.fromJson;
 
   @override
   String get date;
   @override
-  RateDataDto get rates;
+  Map<String, dynamic> get rates;
   @override
   @JsonKey(ignore: true)
   _$$_RateDtoCopyWith<_$_RateDto> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-RateDataDto _$RateDataDtoFromJson(Map<String, dynamic> json) {
-  return _RateDataDto.fromJson(json);
-}
-
-/// @nodoc
-mixin _$RateDataDto {
-  String get mainLabel => throw _privateConstructorUsedError;
-  String get converted => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $RateDataDtoCopyWith<RateDataDto> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $RateDataDtoCopyWith<$Res> {
-  factory $RateDataDtoCopyWith(
-          RateDataDto value, $Res Function(RateDataDto) then) =
-      _$RateDataDtoCopyWithImpl<$Res, RateDataDto>;
-  @useResult
-  $Res call({String mainLabel, String converted});
-}
-
-/// @nodoc
-class _$RateDataDtoCopyWithImpl<$Res, $Val extends RateDataDto>
-    implements $RateDataDtoCopyWith<$Res> {
-  _$RateDataDtoCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? mainLabel = null,
-    Object? converted = null,
-  }) {
-    return _then(_value.copyWith(
-      mainLabel: null == mainLabel
-          ? _value.mainLabel
-          : mainLabel // ignore: cast_nullable_to_non_nullable
-              as String,
-      converted: null == converted
-          ? _value.converted
-          : converted // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_RateDataDtoCopyWith<$Res>
-    implements $RateDataDtoCopyWith<$Res> {
-  factory _$$_RateDataDtoCopyWith(
-          _$_RateDataDto value, $Res Function(_$_RateDataDto) then) =
-      __$$_RateDataDtoCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String mainLabel, String converted});
-}
-
-/// @nodoc
-class __$$_RateDataDtoCopyWithImpl<$Res>
-    extends _$RateDataDtoCopyWithImpl<$Res, _$_RateDataDto>
-    implements _$$_RateDataDtoCopyWith<$Res> {
-  __$$_RateDataDtoCopyWithImpl(
-      _$_RateDataDto _value, $Res Function(_$_RateDataDto) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? mainLabel = null,
-    Object? converted = null,
-  }) {
-    return _then(_$_RateDataDto(
-      mainLabel: null == mainLabel
-          ? _value.mainLabel
-          : mainLabel // ignore: cast_nullable_to_non_nullable
-              as String,
-      converted: null == converted
-          ? _value.converted
-          : converted // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_RateDataDto implements _RateDataDto {
-  const _$_RateDataDto({required this.mainLabel, required this.converted});
-
-  factory _$_RateDataDto.fromJson(Map<String, dynamic> json) =>
-      _$$_RateDataDtoFromJson(json);
-
-  @override
-  final String mainLabel;
-  @override
-  final String converted;
-
-  @override
-  String toString() {
-    return 'RateDataDto(mainLabel: $mainLabel, converted: $converted)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_RateDataDto &&
-            (identical(other.mainLabel, mainLabel) ||
-                other.mainLabel == mainLabel) &&
-            (identical(other.converted, converted) ||
-                other.converted == converted));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, mainLabel, converted);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_RateDataDtoCopyWith<_$_RateDataDto> get copyWith =>
-      __$$_RateDataDtoCopyWithImpl<_$_RateDataDto>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_RateDataDtoToJson(
-      this,
-    );
-  }
-}
-
-abstract class _RateDataDto implements RateDataDto {
-  const factory _RateDataDto(
-      {required final String mainLabel,
-      required final String converted}) = _$_RateDataDto;
-
-  factory _RateDataDto.fromJson(Map<String, dynamic> json) =
-      _$_RateDataDto.fromJson;
-
-  @override
-  String get mainLabel;
-  @override
-  String get converted;
-  @override
-  @JsonKey(ignore: true)
-  _$$_RateDataDtoCopyWith<_$_RateDataDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
