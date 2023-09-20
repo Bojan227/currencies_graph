@@ -3,6 +3,7 @@ import 'package:currencies_graph/presentation/blocs/timeseries/cubit/graph_form_
 import 'package:currencies_graph/presentation/ui/graph/widgets/bar_chart.dart';
 import 'package:currencies_graph/presentation/ui/graph/widgets/bar_chart_graphic.dart';
 import 'package:currencies_graph/presentation/ui/graph/widgets/date_picker.dart';
+import 'package:currencies_graph/presentation/ui/graph/widgets/line_chart_graphic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -79,32 +80,17 @@ class GraphScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    BarChartWidget(
+                    BarChartCraphic(
                       rates: rates,
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    LineChartGraphic(rates: rates)
                   ],
                 ),
                 failed: () => const Text('Failed to get rates data'),
               ),
-              ratesState.when(
-                initial: () => const BarChartWidget(rates: []),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                loaded: (rates) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(currencyCode),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    BarChartCraphic(
-                      rates: rates,
-                    ),
-                  ],
-                ),
-                failed: () => const Text('Failed to get rates data'),
-              )
             ],
           ),
         ),
