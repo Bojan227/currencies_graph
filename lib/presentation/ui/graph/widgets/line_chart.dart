@@ -26,9 +26,7 @@ class LineChartWidget extends StatelessWidget {
                 for (final (index, rate) in rates.indexed)
                   FlSpot(
                     index.toDouble(),
-                    double.parse(double.parse(
-                      rate.rates["PKR"],
-                    ).toStringAsFixed(2)),
+                    rate.rates["PKR"]!,
                   ),
               ],
               isCurved: true,

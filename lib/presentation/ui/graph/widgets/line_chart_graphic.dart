@@ -20,7 +20,7 @@ class LineChartGraphic extends StatelessWidget {
     final timeSeriesRates = rates.map((rate) {
       return TimeSeriesRates(
         rate.date,
-        rate.rates['PKR'],
+        rate.rates['PKR']!,
       );
     }).toList();
 

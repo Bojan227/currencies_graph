@@ -21,8 +21,7 @@ class BarChartWidget extends StatelessWidget {
     double maxValue = 0;
 
     for (var rate in rates) {
-      double value =
-          double.parse(double.parse(rate.rates['PKR']).toStringAsFixed(2));
+      double value = rate.rates['PKR']!;
 
       if (maxValue < value) {
         maxValue = value;
@@ -44,9 +43,7 @@ class BarChartWidget extends StatelessWidget {
                     borderRadius: BorderRadius.zero,
                     color: Colors.black,
                     width: 20,
-                    toY: double.parse(
-                      double.parse(rate.rates["PKR"]).toStringAsFixed(2),
-                    ),
+                    toY: rate.rates["PKR"]!,
                   )
                 ],
               ),
