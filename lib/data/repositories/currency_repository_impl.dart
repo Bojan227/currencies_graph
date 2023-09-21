@@ -1,3 +1,5 @@
+import 'package:currencies_graph/core/exceptions.dart';
+import 'package:currencies_graph/data/datasources/currency_local_datasource.dart';
 import 'package:currencies_graph/data/datasources/currency_remote_datasource.dart';
 import 'package:currencies_graph/data/models/currency_response.dart';
 import 'package:currencies_graph/data/models/timeseries_model.dart';
@@ -42,16 +44,32 @@ Map<String, dynamic> json = {
 };
 
 class CurrencyRepositoryImpl implements CurrencyRepository {
-  CurrencyRepositoryImpl({required this.currencyRemoteDataSource});
+  CurrencyRepositoryImpl({
+    required this.currencyLocalDataSource,
+    required this.currencyRemoteDataSource,
+  });
 
   final CurrencyRemoteDataSource currencyRemoteDataSource;
+  final CurrencyLocalDataSource currencyLocalDataSource;
 
   @override
   Future<List<Currency>> getSupportedCurrencies() async {
-    CurrencyResponse supportedCurrenciesMap =
-        await currencyRemoteDataSource.getSupportedCurrencies();
+    try {
+      CurrencyResponse cachedCurrencies =
+          await currencyLocalDataSource.getCachedSupportedCurrencies();
 
-    return currencyMapper(supportedCurrenciesMap);
+      return currencyMapper(cachedCurrencies);
+    } on EmptyBoxException catch (_) {
+      CurrencyResponse supportedCurrenciesMap =
+          await currencyRemoteDataSource.getSupportedCurrencies();
+
+      await currencyLocalDataSource
+          .cacheSupportedCurrencies(supportedCurrenciesMap);
+
+      return currencyMapper(supportedCurrenciesMap);
+    } catch (error) {
+      throw Error();
+    }
   }
 
   @override

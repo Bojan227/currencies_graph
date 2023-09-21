@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Rate {
   DateTime get date => throw _privateConstructorUsedError;
-  Map<String, dynamic> get rates => throw _privateConstructorUsedError;
+  Map<String, double> get rates => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RateCopyWith<Rate> get copyWith => throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ abstract class $RateCopyWith<$Res> {
   factory $RateCopyWith(Rate value, $Res Function(Rate) then) =
       _$RateCopyWithImpl<$Res, Rate>;
   @useResult
-  $Res call({DateTime date, Map<String, dynamic> rates});
+  $Res call({DateTime date, Map<String, double> rates});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$RateCopyWithImpl<$Res, $Val extends Rate>
       rates: null == rates
           ? _value.rates
           : rates // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, double>,
     ) as $Val);
   }
 }
@@ -66,7 +66,7 @@ abstract class _$$_RateCopyWith<$Res> implements $RateCopyWith<$Res> {
       __$$_RateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime date, Map<String, dynamic> rates});
+  $Res call({DateTime date, Map<String, double> rates});
 }
 
 /// @nodoc
@@ -89,7 +89,7 @@ class __$$_RateCopyWithImpl<$Res> extends _$RateCopyWithImpl<$Res, _$_Rate>
       rates: null == rates
           ? _value._rates
           : rates // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, double>,
     ));
   }
 }
@@ -97,14 +97,14 @@ class __$$_RateCopyWithImpl<$Res> extends _$RateCopyWithImpl<$Res, _$_Rate>
 /// @nodoc
 
 class _$_Rate implements _Rate {
-  const _$_Rate({required this.date, required final Map<String, dynamic> rates})
+  const _$_Rate({required this.date, required final Map<String, double> rates})
       : _rates = rates;
 
   @override
   final DateTime date;
-  final Map<String, dynamic> _rates;
+  final Map<String, double> _rates;
   @override
-  Map<String, dynamic> get rates {
+  Map<String, double> get rates {
     if (_rates is EqualUnmodifiableMapView) return _rates;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_rates);
@@ -138,12 +138,12 @@ class _$_Rate implements _Rate {
 abstract class _Rate implements Rate {
   const factory _Rate(
       {required final DateTime date,
-      required final Map<String, dynamic> rates}) = _$_Rate;
+      required final Map<String, double> rates}) = _$_Rate;
 
   @override
   DateTime get date;
   @override
-  Map<String, dynamic> get rates;
+  Map<String, double> get rates;
   @override
   @JsonKey(ignore: true)
   _$$_RateCopyWith<_$_Rate> get copyWith => throw _privateConstructorUsedError;
