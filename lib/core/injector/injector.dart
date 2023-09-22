@@ -6,6 +6,7 @@ import 'package:currencies_graph/data/repositories/currency_repository_impl.dart
 import 'package:currencies_graph/domain/repositories/currency_repository.dart';
 import 'package:currencies_graph/domain/usecases/get_historical_rates_usecase.dart';
 import 'package:currencies_graph/domain/usecases/get_supported_currencies_usecase.dart';
+import 'package:currencies_graph/presentation/blocs/timeseries/bloc/rates_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -38,4 +39,9 @@ Future setupInjector() async {
       GetHistoricalRatesUseCase(currencyRepository: currencyRepository);
 
   getIt.registerSingleton<GetHistoricalRatesUseCase>(getHistoricalRatesUseCase);
+
+  final RatesBloc ratesBloc =
+      RatesBloc(getHistoricalRatesUseCase: getHistoricalRatesUseCase);
+
+  getIt.registerSingleton<RatesBloc>(ratesBloc);
 }

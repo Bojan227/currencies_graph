@@ -1,5 +1,4 @@
 import 'package:currencies_graph/core/injector/injector.dart';
-import 'package:currencies_graph/domain/usecases/get_historical_rates_usecase.dart';
 import 'package:currencies_graph/presentation/blocs/currencies/currencies_bloc.dart';
 import 'package:currencies_graph/presentation/blocs/timeseries/bloc/rates_bloc.dart';
 import 'package:currencies_graph/presentation/blocs/timeseries/cubit/graph_form_cubit.dart';
@@ -13,8 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<CurrenciesBloc>().state;
-    final GetHistoricalRatesUseCase getHistoricalRatesUseCase =
-        getIt<GetHistoricalRatesUseCase>();
+    final RatesBloc ratesBloc = getIt<RatesBloc>();
 
     return Scaffold(
       body: SafeArea(
@@ -36,10 +34,8 @@ class HomeScreen extends StatelessWidget {
                               BlocProvider(
                                 create: (context) => GraphFormCubit(),
                               ),
-                              BlocProvider(
-                                create: (context) => RatesBloc(
-                                    getHistoricalRatesUseCase:
-                                        getHistoricalRatesUseCase),
+                              BlocProvider.value(
+                                value: ratesBloc,
                               )
                             ],
                             child: GraphScreen(
