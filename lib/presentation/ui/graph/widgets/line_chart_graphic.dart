@@ -43,6 +43,8 @@ class LineChartGraphic extends StatelessWidget {
         },
         marks: [
           LineMark(
+            transition: Transition(duration: const Duration(seconds: 1)),
+            entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
             shape: ShapeEncode(
               value: BasicLineShape(smooth: true),
             ),
@@ -51,6 +53,8 @@ class LineChartGraphic extends StatelessWidget {
             },
           ),
           PointMark(
+            transition: Transition(duration: const Duration(seconds: 3)),
+            entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
             color: ColorEncode(value: Colors.black),
             shape: ShapeEncode(
               value: CircleShape(strokeWidth: 2),

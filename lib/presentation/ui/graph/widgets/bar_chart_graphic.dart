@@ -41,6 +41,10 @@ class BarChartCraphic extends StatelessWidget {
         },
         marks: [
           IntervalMark(
+            transition: Transition(
+                duration: const Duration(seconds: 1),
+                curve: Curves.linearToEaseOut),
+            entrance: {MarkEntrance.y},
             modifiers: [DodgeModifier(ratio: 0.2)],
             label: LabelEncode(
                 encoder: (tuple) => Label(tuple['value'].toString())),
