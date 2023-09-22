@@ -1,6 +1,7 @@
 import 'package:currencies_graph/core/hive/hive_helper.dart';
 import 'package:currencies_graph/data/datasources/currency_local_datasource.dart';
 import 'package:currencies_graph/data/datasources/currency_remote_datasource.dart';
+import 'package:currencies_graph/data/models/currency_response.dart';
 import 'package:currencies_graph/data/repositories/currency_repository_impl.dart';
 import 'package:currencies_graph/domain/repositories/currency_repository.dart';
 import 'package:currencies_graph/domain/usecases/get_historical_rates_usecase.dart';
@@ -12,7 +13,9 @@ GetIt getIt = GetIt.instance;
 
 Future setupInjector() async {
   final dio = Dio();
-  final HiveHelper hiveHelper = HiveHelper();
+  final HiveHelper hiveHelper = HiveHelper<CurrencyResponse>(
+      currenciesBoxName: "CURRENCIES_BOX",
+      currenciesKey: "SUPPORTED_CURRENCIES");
   getIt.registerSingleton<HiveHelper>(hiveHelper);
 
   final CurrencyRemoteDataSource currencyRemoteDataSource =

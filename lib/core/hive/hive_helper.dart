@@ -1,12 +1,13 @@
 import 'package:currencies_graph/core/exceptions.dart';
 import 'package:currencies_graph/core/hive/adapters/currency_adapter.dart';
-import 'package:currencies_graph/data/models/currency_response.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
-class HiveHelper {
-  static String currenciesBoxName = 'CURRENCIES_BOX';
-  static String currenciesKey = 'SUPPORTED_BOX';
+class HiveHelper<T> {
+  final String currenciesBoxName;
+  final String currenciesKey;
+
+  HiveHelper({required this.currenciesBoxName, required this.currenciesKey});
 
   Future<void> initHive() async {
     await Hive.initFlutter();
@@ -22,16 +23,16 @@ class HiveHelper {
     await box.close();
   }
 
-  Future<void> save(CurrencyResponse currencyResponse) async {
+  Future<void> save(T data) async {
     final Box currenciesBox = await openBox(currenciesBoxName);
 
-    await currenciesBox.put(currenciesKey, currencyResponse);
+    await currenciesBox.put(currenciesKey, data);
   }
 
-  Future<CurrencyResponse> getCachedData() async {
+  Future<T> getCachedData() async {
     final Box currenciesBox = await openBox(currenciesBoxName);
 
-    final CurrencyResponse? currencyResponse = currenciesBox.get(currenciesKey);
+    final T? currencyResponse = currenciesBox.get(currenciesKey);
     await closeBox(currenciesBox);
 
     if (currencyResponse == null) throw EmptyBoxException('Empty Box');
