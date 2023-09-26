@@ -21,6 +21,7 @@ class GraphScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final graphForm = context.watch<GraphFormCubit>().state.parameters;
     final ratesState = context.watch<RatesBloc>().state;
+    final currentWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -73,22 +74,38 @@ class GraphScreen extends StatelessWidget {
                 loading: () => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                loaded: (rates) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(currencyCode),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    BarChartCraphic(
-                      rates: rates,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    LineChartGraphic(rates: rates)
-                  ],
-                ),
+                loaded: (rates) => currentWidth < 420
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(currencyCode),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          BarChartCraphic(
+                            rates: rates,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          LineChartGraphic(rates: rates)
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Text(currencyCode),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          BarChartCraphic(
+                            rates: rates,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          LineChartGraphic(rates: rates)
+                        ],
+                      ),
                 failed: () => const Text('Failed to get rates data'),
               ),
             ],
