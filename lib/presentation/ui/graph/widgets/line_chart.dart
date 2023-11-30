@@ -12,6 +12,8 @@ class LineChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(rates);
+
     List<String> bottomTitles =
         rates.map((rate) => convertDate(rate.date)).toList();
 

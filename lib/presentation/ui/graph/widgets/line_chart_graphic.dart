@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:currencies_graph/core/utils/convert_date.dart';
 import 'package:currencies_graph/domain/entities/rates_entity.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,15 @@ class LineChartGraphic extends StatelessWidget {
           ),
         },
         marks: [
+          AreaMark(
+            shape: ShapeEncode(
+              value: BasicAreaShape(smooth: true),
+            ),
+          ),
           LineMark(
+            color: ColorEncode(
+              encoder: (p0) => Colors.purpleAccent,
+            ),
             transition: Transition(duration: const Duration(seconds: 1)),
             entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
             shape: ShapeEncode(
