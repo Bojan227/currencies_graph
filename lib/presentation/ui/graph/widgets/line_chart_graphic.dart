@@ -5,6 +5,13 @@ import 'package:currencies_graph/domain/entities/rates_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:graphic/graphic.dart';
 
+class _SalesData {
+  _SalesData(this.year, this.sales);
+
+  final String year;
+  final double sales;
+}
+
 class TimeSeriesRates {
   final DateTime day;
   final double currency;
@@ -19,83 +26,108 @@ class LineChartGraphic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeSeriesRates = rates.map((rate) {
-      return TimeSeriesRates(
-        rate.date,
-        rate.rates['PKR']!,
-      );
-    }).toList();
+    List<_SalesData> sales = [
+      _SalesData('1 pm', 4),
+      _SalesData('2 pm', 3.5),
+      _SalesData('3 pm', 6),
+      _SalesData('4 pm', 3),
+      _SalesData('5 pm', 2.4),
+      _SalesData('6 pm', 7.2),
+    ];
 
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      width: 350,
-      height: 300,
-      child: Chart(
-        data: timeSeriesRates,
-        variables: {
-          'day': Variable(
-            accessor: (TimeSeriesRates datum) => datum.day,
-            scale: TimeScale(
-              formatter: (time) => convertDate(time),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        width: double.infinity,
+        height: 300,
+        child: Chart(
+          padding: (_) => EdgeInsets.all(12),
+          data: sales,
+          variables: {
+            'day': Variable(
+              accessor: (_SalesData datum) => datum.year,
             ),
-          ),
-          'currency': Variable(
-            accessor: (TimeSeriesRates datum) => datum.currency,
-          ),
-        },
-        marks: [
-          AreaMark(
-            shape: ShapeEncode(
-              value: BasicAreaShape(smooth: true),
+            'currency': Variable(
+              accessor: (_SalesData datum) => datum.sales,
             ),
-          ),
-          LineMark(
-            color: ColorEncode(
-              encoder: (p0) => Colors.purpleAccent,
+          },
+          marks: [
+            AreaMark(
+              gradient: GradientEncode(
+                encoder: (_) => LinearGradient(
+                  stops: [0, 0.2, 0.5, 1],
+                  colors: [
+                    Colors.green[50]!,
+                    Colors.green[100]!,
+                    Colors.green[200]!,
+                    Colors.green[300]!,
+                  ],
+                  end: Alignment.topCenter,
+                  begin: Alignment.bottomCenter,
+                ),
+              ),
+              shape: ShapeEncode(
+                value: BasicAreaShape(smooth: true),
+              ),
             ),
-            transition: Transition(duration: const Duration(seconds: 1)),
-            entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
-            shape: ShapeEncode(
-              value: BasicLineShape(smooth: true),
+            LineMark(
+              color: ColorEncode(
+                encoder: (p0) => Colors.green[900]!,
+              ),
+              size: SizeEncode(encoder: (_) => 2),
+              transition: Transition(duration: const Duration(seconds: 1)),
+              entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
+              shape: ShapeEncode(
+                value: BasicLineShape(
+                  smooth: true,
+                ),
+              ),
+              selected: {
+                'touchMove': {2}
+              },
             ),
-            selected: {
-              'touchMove': {2}
-            },
+            // PointMark(
+            //   transition: Transition(duration: const Duration(seconds: 3)),
+            //   entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
+            //   color: ColorEncode(value: Colors.black),
+            //   shape: ShapeEncode(
+            //     value: CircleShape(strokeWidth: 2),
+            //   ),
+            //   size: SizeEncode(value: 8),
+            // ),
+          ],
+          coord: RectCoord(),
+          axes: [
+            Defaults.horizontalAxis
+              ..position = 0
+              ..grid = null
+              ..line = null
+              ..dim = Dim.x,
+            Defaults.verticalAxis
+              ..position = 0
+              ..grid = null,
+          ],
+          selections: {
+            'touchMove': PointSelection(
+              on: {
+                GestureType.tapDown,
+              },
+              dim: Dim.x,
+            )
+          },
+          tooltip: TooltipGuide(
+            followPointer: [true, false],
+            align: Alignment.topLeft,
+            mark: 0,
           ),
-          PointMark(
-            transition: Transition(duration: const Duration(seconds: 3)),
-            entrance: {MarkEntrance.x, MarkEntrance.y, MarkEntrance.opacity},
-            color: ColorEncode(value: Colors.black),
-            shape: ShapeEncode(
-              value: CircleShape(strokeWidth: 2),
-            ),
-            size: SizeEncode(value: 8),
+          crosshair: CrosshairGuide(
+            styles: [
+              PaintStyle(strokeColor: const Color(0xffbfbfbf)),
+              PaintStyle(strokeColor: const Color(0x00bfbfbf)),
+            ],
+            followPointer: [true, false],
           ),
-        ],
-        coord: RectCoord(),
-        axes: [
-          Defaults.horizontalAxis,
-          Defaults.verticalAxis,
-        ],
-        selections: {
-          'touchMove': PointSelection(
-            on: {
-              GestureType.scaleUpdate,
-              GestureType.tapDown,
-              GestureType.longPressMoveUpdate
-            },
-            dim: Dim.x,
-          )
-        },
-        tooltip: TooltipGuide(
-          padding: const EdgeInsets.all(14),
-          elevation: 6,
-          followPointer: [false, true],
-          align: Alignment.topLeft,
-          offset: const Offset(-20, -20),
-        ),
-        crosshair: CrosshairGuide(
-          followPointer: [true, true],
         ),
       ),
     );
